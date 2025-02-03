@@ -2,7 +2,7 @@ import { Vec3 } from 'vec3'
 import { Client, ServerClient, PacketMeta } from 'minecraft-protocol'
 import { Bot as VanillaBot, GameState } from 'mineflayer'
 import { performance } from 'perf_hooks'
-import type { Item as ItemType, NotchItem } from 'prismarine-item'
+import type { Item as ItemType } from 'prismarine-item'
 import { IPositionTransformer, packetAbilities } from '@icetank/mcproxy'
 
 const itemLoader = require('prismarine-item/index.js') // ncc compat, get default.
@@ -25,9 +25,9 @@ class FakeEntity {
   oldYaw: number
   oldPitch: number
   onGround: boolean
-  mainHand?: NotchItem
-  offHand?: NotchItem
-  armor: Array<NotchItem | undefined>
+  mainHand?: object
+  offHand?: object
+  armor: Array<object | undefined>
   constructor (pos: Vec3, yaw: number, pitch: number) {
     this.knownPosition = pos
     this.yaw = yaw
@@ -248,7 +248,7 @@ export class FakePlayer {
   }
 
   updateEquipment (client: ServerClient) {
-    const NotchItemEqual = (item1?: NotchItem, item2?: NotchItem) => {
+    const objectEqual = (item1?: object, item2?: object) => {
       item1 = item1 ?? {}
       item2 = item2 ?? {}
       return JSON.stringify(item1) === JSON.stringify(item2)
@@ -258,7 +258,7 @@ export class FakePlayer {
     const mainHand = (this.bot.heldItem != null) ? this.pItem.toNotch(this.bot.heldItem) : NoneItemData
     const offHand = this.bot.inventory.slots[45] ? this.pItem.toNotch(this.bot.inventory.slots[45]) : NoneItemData
     // Main hand
-    if (!NotchItemEqual(mainHand, this.fakePlayerEntity.mainHand)) {
+    if (!objectEqual(mainHand, this.fakePlayerEntity.mainHand)) {
       this.writeRaw(client, 'entity_equipment', {
         entityId: FakePlayer.fakePlayerId,
         slot: 0,
@@ -267,7 +267,7 @@ export class FakePlayer {
       this.fakePlayerEntity.mainHand = mainHand
     }
     // Off-Hand
-    if (!NotchItemEqual(offHand, this.fakePlayerEntity.offHand)) {
+    if (!objectEqual(offHand, this.fakePlayerEntity.offHand)) {
       this.writeRaw(client, 'entity_equipment', {
         entityId: FakePlayer.fakePlayerId,
         slot: 1,
@@ -282,7 +282,7 @@ export class FakePlayer {
       const armorItem = this.bot.inventory.slots[i + 5]
         ? this.pItem.toNotch(this.bot.inventory.slots[i + 5])
         : NoneItemData
-      if (NotchItemEqual(armorItem, this.fakePlayerEntity.armor[i])) continue
+      if (objectEqual(armorItem, this.fakePlayerEntity.armor[i])) continue
       this.writeRaw(client, 'entity_equipment', {
         entityId: FakePlayer.fakePlayerId,
         slot: equipmentMap[i],

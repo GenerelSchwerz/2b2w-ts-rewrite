@@ -29,7 +29,7 @@ minecraft:
   remoteServer:
     host: 2b2t.org
     port: 25565
-    version: 1.12.2
+    version: 1.19.4
 
 
 # Minecraft-protocol configuration for our local server.
@@ -38,7 +38,7 @@ minecraft:
 localServer:
   host: 0.0.0.0
   port: 25567
-  version: 1.12.2
+  version: 1.19.4
   online-mode: false
   maxPlayers: 1
 
@@ -59,7 +59,7 @@ localServerConfig:
   # Experimental, but does work. (Some commands break)
   disconnectAllOnEnd: false
   restartOnDisconnect: true
-  linkOnConnect: true
+  linkOnConnect: false
 
 
   motdPrefix: "§6"

@@ -1,9 +1,10 @@
 import { ProxyServerPlugin, CommandMap, CmdPerm } from "@nxg-org/mineflayer-mitm-proxy";
 import { Client as ProxyClient, Conn, PacketMiddleware } from "@icetank/mcproxy";
 import { Client } from "minecraft-protocol";
-import { sleep } from "../util/index";
-import { FakePlayer, WorldManager } from "./spectatorUtils";
+import { WorldManager } from "./spectatorUtils";
 import { FakeBotEntity, GhostHandler } from "./ghostUtils/fakes";
+
+const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 export interface SpectatorServerOpts {
   linkOnConnect: boolean;
@@ -27,13 +28,11 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
       description: "Link player to remote bot instance",
       allowedIf: CmdPerm.UNLINKED,
       callable: this.link.bind(this),
-      
     },
     unlink: {
       description: "Unlink player from remote bot instance",
       allowedIf: CmdPerm.LINKED,
       callable: this.unlink.bind(this),
-     
     },
 
     c: {
@@ -66,7 +65,6 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
         const res0 = this.makeViewFakePlayer(client);
         if (res0) this.server.message(client, "Connecting to view. Type /unview to exit");
       },
-     
     },
 
     unview: {
@@ -76,7 +74,6 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
         const res1 = this.makeViewNormal(client);
         if (res1) this.server.message(client, "Disconnecting from view. Type /view to connect");
       },
-      
     },
 
     tpto: {
@@ -117,10 +114,10 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
   // ======================= //
 
   private buildFakeData(conn: Conn) {
-    this.fakePlayer = new FakeBotEntity(conn.stateData.bot, {
+    this.fakePlayer = new FakeBotEntity(conn.stateData.bot as any, {
       username: "[B] " + conn.stateData.bot.username.substring(0, 12),
       // uuid: conn.stateData.bot._client.uuid,
-      positionTransformer: conn.positionTransformer
+      positionTransformer: conn.positionTransformer,
     });
 
     this.fakeSpectator = new GhostHandler(this.fakePlayer);
@@ -131,7 +128,7 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
   }
 
   public async sendPackets(client: Client) {
-    while (this.server.remoteBot?.player == null) {
+    while (this.server.remoteBot?.entity == null) {
       await sleep(100);
     }
     this.server.conn?.sendPackets(client as ProxyClient);
@@ -147,16 +144,15 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
       managedPlayer.awaitPosReference(this.server.remoteBot);
 
       this.server.conn.attach(client as unknown as ProxyClient, {
-        toClientMiddleware: [...managedPlayer.getMiddlewareToClient()],
+        toClientMiddleware: managedPlayer.getMiddlewareToClient(),
       });
     } else {
       this.server.conn.attach(client as unknown as ProxyClient);
     }
+
     await this.sendPackets(client);
-
     const connect = this.server.psOpts.linkOnConnect && this.server.conn?.pclient == null;
-
-    if (!connect) {
+    if (connect) {
       this.fakeSpectator!.makeSpectator(client);
       this.fakeSpectator!.register(client);
       if (this.server.controllingPlayer == null) {
@@ -179,13 +175,11 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
     return true;
   };
 
-
   link(client: Client) {
     if (this.server.controllingPlayer == null) {
       this.server.message(client, "Linking");
       super.link(client);
-    }
-    else this.server.message(client, `Cannot link. User §3${this.server.controllingPlayer.username}:§r is linked.`);
+    } else this.server.message(client, `Cannot link. User §3${this.server.controllingPlayer.username}:§r is linked.`);
   }
 
   async onLinking(client: Client) {
@@ -240,10 +234,7 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
   private genToClientMiddleware(conn: Conn) {
     const inspector_toClientMiddleware: PacketMiddleware = ({ meta, data, isCanceled, bound }) => {
       if (conn == null || isCanceled || bound !== "client") return;
-      if (
-        !this.server.isPlayerControlling() &&
-        SpectatorServerPlugin.notControllingBlockedPackets.includes(meta.name)
-      ) {
+      if (!this.server.isPlayerControlling() && SpectatorServerPlugin.notControllingBlockedPackets.includes(meta.name)) {
       }
     };
 
@@ -253,20 +244,20 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
       if (data.collectorEntityId === conn.stateData.bot.entity?.id) {
         switch (meta.name) {
           case "collect":
-            data.collectorEntityId = FakePlayer.fakePlayerId;
+            data.collectorEntityId = FakeBotEntity.id;
             break;
           case "entity_metadata":
-            data.entityId = FakePlayer.fakePlayerId;
+            data.entityId = FakeBotEntity.id;
             break;
           case "entity_update_attributes":
-            data.entityId = FakePlayer.fakePlayerId;
+            data.entityId = FakeBotEntity.id;
             break;
         }
       }
       if (data.entityId === conn.stateData.bot.entity?.id) {
         switch (meta.name) {
           case "entity_velocity":
-            data.entityId = FakePlayer.fakePlayerId;
+            data.entityId = FakeBotEntity.id;
             return; // can't sim, so might as well ignore for now.
         }
       }

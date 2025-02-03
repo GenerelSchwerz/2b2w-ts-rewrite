@@ -1,3 +1,4 @@
+Error.stackTraceLimit = 30
 import * as fs from "fs";
 import path from "path";
 import { validateOptions } from "./util/config";
@@ -20,7 +21,7 @@ import detectTSNode from "detect-ts-node";
 import rl from "readline";
 import { once } from "events";
 
-if (process.version.split("v")[1].split(".")[0] != "16") {
+if (process.version.split("v")[1].split(".")[0] != "18") {
   console.log("Your version of node is incorrect. This program only functions on Node16.");
   console.log(`Your node version is: ${process.version}`);
   console.log("This is an issue with node-minecraft-protocol, so annoy them. Not me.");
@@ -60,12 +61,13 @@ async function setup() {
     .addPlugin(new SpectatorServerPlugin())
     .addPlugin(new TwoBAntiAFKPlugin())
     .addPlugin(new MotdReporter())
+    
 
     // apply settings only after all plugins have been loaded!
     .setSettings({
       pluginFolder: checkedConfig.pluginFolder, // temporary hotfix
       ...checkedConfig.localServerConfig,
-    })
+    } as any)
     .setOtherSettings({
       loggerOpts: checkedConfig.logger,
     })
@@ -81,9 +83,9 @@ async function setup() {
     server.loadPlugin(new WebhookReporter(checkedConfig.discord.webhooks));
   }
 
-  if (checkedConfig.discord.bot?.enabled) {
-    buildClient(checkedConfig.discord.bot, server);
-  }
+  // if (checkedConfig.discord.bot?.enabled) {
+  //   buildClient(checkedConfig.discord.bot, server);
+  // }
 
   // ==========================
   //   Dynamic plugin loading
@@ -123,6 +125,8 @@ async function setup() {
         })
       );
   }
+
+  // server.on('started', (conn) => conn.stateData.bot._client.on('player_info', console.log))
 
   // ===============================
   //   Process interrupt handling

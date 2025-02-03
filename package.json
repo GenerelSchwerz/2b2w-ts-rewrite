@@ -16,18 +16,16 @@
   },
   "devDependencies": {
     "caxa": "^3.0.1",
-    "mineflayer": "^4.8.1",
     "pkg": "^5.8.1",
     "ts-standard": "^12.0.2",
     "typescript": "^5.0.3"
   },
   "dependencies": {
     "@discordx/importer": "^1.1.10",
-    "@icetank/mcproxy": "^1.0.3",
     "@nxg-org/mineflayer-antiafk": "^1.5.13",
     "@nxg-org/mineflayer-auto-eat": "^2.3.8",
     "@nxg-org/mineflayer-custom-pvp": "^1.7.2",
-    "@nxg-org/mineflayer-mitm-proxy": "^0.5.7",
+    "@nxg-org/mineflayer-mitm-proxy": "nxg-org/mineflayer-mitm-proxy#1-19",
     "@types/node": "^18.15.10",
     "detect-ts-node": "^1.0.5",
     "discord.js": "^14.7.1",
@@ -45,10 +43,7 @@
     "ts-deepmerge": "^5.0.0",
     "ts-luxon": "^4.0.1"
   },
-  "resolutions": {
-    "mineflayer/prismarine-world": "IceTank/prismarine-world.git#storage-provider-save-fix"
-  },
   "engines": {
-    "node": ">=16.0.0 <17.0.0"
+    "node": ">=16.0.0 <19.0.0"
   }
 }

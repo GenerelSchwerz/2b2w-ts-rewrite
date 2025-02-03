@@ -19,6 +19,7 @@ import { pathfinder } from 'mineflayer-pathfinder'
 import { PacketQueuePredictor, PacketQueuePredictorEvents } from './predictors/packetQueuePredictor'
 import { CombinedPredictor } from './predictors/combinedPredictor'
 import { IProxyServerOpts, IProxyServerEvents, ProxyServerPlugin } from '@nxg-org/mineflayer-mitm-proxy'
+import { once } from 'events'
 
 export interface TwoBAntiAFKOpts {
   antiAFK: {
@@ -53,11 +54,14 @@ export class TwoBAntiAFKPlugin extends ProxyServerPlugin<TwoBAntiAFKOpts, {}, Tw
     this.drop('queue')
   }
 
-  onInitialBotSetup(bot: Bot) {
+  async onInitialBotSetup(bot: Bot) {
+    // console.log(this.psOpts.antiAFK.enabled, (bot as any).antiAfk, antiAFK)
     if (this.psOpts.antiAFK.enabled) {
+      await once(bot, 'inject_allowed')
       bot.loadPlugin(pathfinder)
       bot.loadPlugin(antiAFK)
       unloadDefaultModules(bot)
+      
 
       bot.antiafk.on('moduleCanceled', (mod) =>
         this.serverLog('AntiAFK!', `[ERROR] Canceled AntiAFK module: ${mod.constructor.name}`)
