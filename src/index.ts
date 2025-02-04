@@ -21,12 +21,12 @@ import detectTSNode from "detect-ts-node";
 import rl from "readline";
 import { once } from "events";
 
-if (process.version.split("v")[1].split(".")[0] != "18") {
-  console.log("Your version of node is incorrect. This program only functions on Node16.");
-  console.log(`Your node version is: ${process.version}`);
-  console.log("This is an issue with node-minecraft-protocol, so annoy them. Not me.");
-  process.exit(1);
-}
+// if (process.version.split("v")[1].split(".")[0] != "18") {
+//   console.log("Your version of node is incorrect. This program only functions on Node16.");
+//   console.log(`Your node version is: ${process.version}`);
+//   console.log("This is an issue with node-minecraft-protocol, so annoy them. Not me.");
+//   process.exit(1);
+// }
 
 const yaml = require("js-yaml");
 

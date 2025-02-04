@@ -1,4 +1,6 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
-    "print.colourScheme": "GitHub"
+    "print.colourScheme": "GitHub",
+    "ecl.launchConfiguration": "not found",
+    "ecl.targetCluster": {}
 }

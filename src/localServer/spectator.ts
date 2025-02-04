@@ -1,5 +1,5 @@
 import { ProxyServerPlugin, CommandMap, CmdPerm } from "@nxg-org/mineflayer-mitm-proxy";
-import { Client as ProxyClient, Conn, PacketMiddleware } from "@icetank/mcproxy";
+import { Client as ProxyClient, Conn, PacketMiddleware } from "@GenerelSchwerz/mcproxy";
 import { Client } from "minecraft-protocol";
 import { WorldManager } from "./spectatorUtils";
 import { FakeBotEntity, GhostHandler } from "./ghostUtils/fakes";

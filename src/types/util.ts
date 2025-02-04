@@ -11,148 +11,162 @@ export type DeepPartial<T, Num extends number = 9999, Temp extends any[] = []> =
       }
     : T
 
-export type Overloads<T extends (...args: any[]) => any> = T extends {
-  (...args: infer A1): infer R1
-  (...args: infer A2): infer R2
-  (...args: infer A3): infer R3
-  (...args: infer A4): infer R4
-  (...args: infer A5): infer R5
-  (...args: infer A6): infer R6
-  (...args: infer A7): infer R7
-  (...args: infer A8): infer R8
-  (...args: infer A9): infer R9
-}
-  ?
-    | ((...args: A1) => R1)
-    | ((...args: A2) => R2)
-    | ((...args: A3) => R3)
-    | ((...args: A4) => R4)
-    | ((...args: A5) => R5)
-    | ((...args: A6) => R6)
-    | ((...args: A7) => R7)
-    | ((...args: A8) => R8)
-    | ((...args: A9) => R9)
-  : T extends {
-    (...args: infer A1): infer R1
-    (...args: infer A2): infer R2
-    (...args: infer A3): infer R3
-    (...args: infer A4): infer R4
-    (...args: infer A5): infer R5
-    (...args: infer A6): infer R6
-    (...args: infer A7): infer R7
-    (...args: infer A8): infer R8
-  }
-    ?
-      | ((...args: A1) => R1)
-      | ((...args: A2) => R2)
-      | ((...args: A3) => R3)
-      | ((...args: A4) => R4)
-      | ((...args: A5) => R5)
-      | ((...args: A6) => R6)
-      | ((...args: A7) => R7)
-      | ((...args: A8) => R8)
-    : T extends {
-      (...args: infer A1): infer R1
-      (...args: infer A2): infer R2
-      (...args: infer A3): infer R3
-      (...args: infer A4): infer R4
-      (...args: infer A5): infer R5
-      (...args: infer A6): infer R6
-      (...args: infer A7): infer R7
-    }
-      ?
-        | ((...args: A1) => R1)
-        | ((...args: A2) => R2)
-        | ((...args: A3) => R3)
-        | ((...args: A4) => R4)
-        | ((...args: A5) => R5)
-        | ((...args: A6) => R6)
-        | ((...args: A7) => R7)
-      : T extends {
-        (...args: infer A1): infer R1
-        (...args: infer A2): infer R2
-        (...args: infer A3): infer R3
-        (...args: infer A4): infer R4
-        (...args: infer A5): infer R5
-        (...args: infer A6): infer R6
-      }
-        ?
-          | ((...args: A1) => R1)
-          | ((...args: A2) => R2)
-          | ((...args: A3) => R3)
-          | ((...args: A4) => R4)
-          | ((...args: A5) => R5)
-          | ((...args: A6) => R6)
-        : T extends {
-          (...args: infer A1): infer R1
-          (...args: infer A2): infer R2
-          (...args: infer A3): infer R3
-          (...args: infer A4): infer R4
-          (...args: infer A5): infer R5
-        }
-          ?
-            | ((...args: A1) => R1)
-            | ((...args: A2) => R2)
-            | ((...args: A3) => R3)
-            | ((...args: A4) => R4)
-            | ((...args: A5) => R5)
-          : T extends {
-            (...args: infer A1): infer R1
-            (...args: infer A2): infer R2
-            (...args: infer A3): infer R3
-            (...args: infer A4): infer R4
-          }
-            ? ((...args: A1) => R1) | ((...args: A2) => R2) | ((...args: A3) => R3) | ((...args: A4) => R4)
-            : T extends {
-              (...args: infer A1): infer R1
-              (...args: infer A2): infer R2
-              (...args: infer A3): infer R3
-            }
-              ? ((...args: A1) => R1) | ((...args: A2) => R2) | ((...args: A3) => R3)
-              : T extends { (...args: infer A1): infer R1, (...args: infer A2): infer R2 }
-                ? ((...args: A1) => R1) | ((...args: A2) => R2)
-                : T extends (...args: infer A1) => infer R1
-                  ? (...args: A1) => R1
-                  : never
+// export type Overloads<T extends (...args: any[]) => any> = T extends {
+//   (...args: infer A1): infer R1
+//   (...args: infer A2): infer R2
+//   (...args: infer A3): infer R3
+//   (...args: infer A4): infer R4
+//   (...args: infer A5): infer R5
+//   (...args: infer A6): infer R6
+//   (...args: infer A7): infer R7
+//   (...args: infer A8): infer R8
+//   (...args: infer A9): infer R9
+// }
+//   ?
+//     | ((...args: A1) => R1)
+//     | ((...args: A2) => R2)
+//     | ((...args: A3) => R3)
+//     | ((...args: A4) => R4)
+//     | ((...args: A5) => R5)
+//     | ((...args: A6) => R6)
+//     | ((...args: A7) => R7)
+//     | ((...args: A8) => R8)
+//     | ((...args: A9) => R9)
+//   : T extends {
+//     (...args: infer A1): infer R1
+//     (...args: infer A2): infer R2
+//     (...args: infer A3): infer R3
+//     (...args: infer A4): infer R4
+//     (...args: infer A5): infer R5
+//     (...args: infer A6): infer R6
+//     (...args: infer A7): infer R7
+//     (...args: infer A8): infer R8
+//   }
+//     ?
+//       | ((...args: A1) => R1)
+//       | ((...args: A2) => R2)
+//       | ((...args: A3) => R3)
+//       | ((...args: A4) => R4)
+//       | ((...args: A5) => R5)
+//       | ((...args: A6) => R6)
+//       | ((...args: A7) => R7)
+//       | ((...args: A8) => R8)
+//     : T extends {
+//       (...args: infer A1): infer R1
+//       (...args: infer A2): infer R2
+//       (...args: infer A3): infer R3
+//       (...args: infer A4): infer R4
+//       (...args: infer A5): infer R5
+//       (...args: infer A6): infer R6
+//       (...args: infer A7): infer R7
+//     }
+//       ?
+//         | ((...args: A1) => R1)
+//         | ((...args: A2) => R2)
+//         | ((...args: A3) => R3)
+//         | ((...args: A4) => R4)
+//         | ((...args: A5) => R5)
+//         | ((...args: A6) => R6)
+//         | ((...args: A7) => R7)
+//       : T extends {
+//         (...args: infer A1): infer R1
+//         (...args: infer A2): infer R2
+//         (...args: infer A3): infer R3
+//         (...args: infer A4): infer R4
+//         (...args: infer A5): infer R5
+//         (...args: infer A6): infer R6
+//       }
+//         ?
+//           | ((...args: A1) => R1)
+//           | ((...args: A2) => R2)
+//           | ((...args: A3) => R3)
+//           | ((...args: A4) => R4)
+//           | ((...args: A5) => R5)
+//           | ((...args: A6) => R6)
+//         : T extends {
+//           (...args: infer A1): infer R1
+//           (...args: infer A2): infer R2
+//           (...args: infer A3): infer R3
+//           (...args: infer A4): infer R4
+//           (...args: infer A5): infer R5
+//         }
+//           ?
+//             | ((...args: A1) => R1)
+//             | ((...args: A2) => R2)
+//             | ((...args: A3) => R3)
+//             | ((...args: A4) => R4)
+//             | ((...args: A5) => R5)
+//           : T extends {
+//             (...args: infer A1): infer R1
+//             (...args: infer A2): infer R2
+//             (...args: infer A3): infer R3
+//             (...args: infer A4): infer R4
+//           }
+//             ? ((...args: A1) => R1) | ((...args: A2) => R2) | ((...args: A3) => R3) | ((...args: A4) => R4)
+//             : T extends {
+//               (...args: infer A1): infer R1
+//               (...args: infer A2): infer R2
+//               (...args: infer A3): infer R3
+//             }
+//               ? ((...args: A1) => R1) | ((...args: A2) => R2) | ((...args: A3) => R3)
+//               : T extends { (...args: infer A1): infer R1, (...args: infer A2): infer R2 }
+//                 ? ((...args: A1) => R1) | ((...args: A2) => R2)
+//                 : T extends (...args: infer A1) => infer R1
+//                   ? (...args: A1) => R1
+//                   : never
 
 /**
  * Note: this removes the string and raw-string implementations of emit from minecraft-protocol's client.
  */
 type CustomOverload<T extends (...args: any[]) => any> = T extends {
-  (...args: infer A1): infer R1
-  (...args: infer A2): infer R2
-  (...args: infer A3): infer R3
-  (...args: infer A4): infer R4
-  (...args: infer A5): infer R5
-  (...args: infer A6): infer R6
-  (...args: infer A7): infer R7
-  (...args: infer A8): infer R8
-  (...args: infer A9): infer R9
-  (...args: infer A10): infer R10
-  // (...args: infer A11): infer R11;
+  (...args: infer A1): infer R1;
+  (...args: infer A2): infer R2;
+  (...args: infer A3): infer R3;
+  (...args: infer A4): infer R4;
+  (...args: infer A5): infer R5;
+  (...args: infer A6): infer R6;
+  (...args: infer A7): infer R7;
+  (...args: infer A8): infer R8;
+  (...args: infer A9): infer R9;
+  (...args: infer A10): infer R10;
+  (...args: infer A11): infer R11;
+  (...args: infer A12): infer R12;
 }
-  ?
-    | ((...args: A1) => R1)
-    | ((...args: A2) => R2)
-    | ((...args: A3) => R3)
-    | ((...args: A4) => R4)
-    | ((...args: A5) => R5)
-    | ((...args: A6) => R6)
-    | ((...args: A7) => R7)
-    | ((...args: A10) => R10)
-  : // | ((...args: A11) => R11)
-  never
+  ? ((...args: A1) => R1) |
+    ((...args: A2) => R2) |
+    ((...args: A3) => R3) |
+    ((...args: A4) => R4) |
+    ((...args: A5) => R5) |
+    ((...args: A6) => R6) |
+    ((...args: A7) => R7) |
+    ((...args: A8) => R8) |
+    ((...args: A9) => R9) |
+    ((...args: A10) => R10) |
+    ((...args: A11) => R11) |
+    ((...args: A12) => R12)
+  : never;
 
-type CustomOverloadedParameters<T extends (...args: any[]) => any> = Parameters<CustomOverload<T>>
+type CustomOverloadedParameters<T extends (...args: any[]) => any> = Parameters<CustomOverload<T>>;
 
-export type OverloadedParameters<T extends (...args: any[]) => any> = Parameters<Overloads<T>>
-export type OverloadedReturnType<T extends (...args: any[]) => any> = ReturnType<Overloads<T>>
+export type OverloadedParameters<T extends (...args: any[]) => any> = Parameters<CustomOverload<T>>;
+export type OverloadedReturnType<T extends (...args: any[]) => any> = ReturnType<CustomOverload<T>>;
+
+
 
 export type ClientEmitters = Bot | Client
 
 type ValidClientFuncs = CustomOverloadedParameters<Client['on']>
 
-type ValidClientEvents = ValidClientFuncs[0]
+  type ExtractStringLiterals<T> = T extends [infer E, any] 
+  ? E extends string 
+    ? string extends E 
+      ? never // This is a generic string (not a literal)
+      : E    // This is a string literal, keep it
+    : never
+  : never;
+  
+// only allow literals, but deny the catch-all string event
+type ValidClientEvents = ExtractStringLiterals<ValidClientFuncs>;
 
 export type ClientListener<T extends ValidClientEvents> = Extract<ValidClientFuncs, [event: T, handler: any]>
 

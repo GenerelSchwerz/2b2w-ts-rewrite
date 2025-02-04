@@ -13,7 +13,7 @@ import {
   BoxWalkOpts,
   SwingArm
 } from '@nxg-org/mineflayer-antiafk/lib/modules'
-import { Conn } from '@icetank/mcproxy'
+import { Conn } from '@GenerelSchwerz/mcproxy'
 import { Bot } from 'mineflayer'
 import { pathfinder } from 'mineflayer-pathfinder'
 import { PacketQueuePredictor, PacketQueuePredictorEvents } from './predictors/packetQueuePredictor'

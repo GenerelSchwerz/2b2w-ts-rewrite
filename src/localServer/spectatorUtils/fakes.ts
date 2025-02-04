@@ -3,7 +3,7 @@ import { Client, ServerClient, PacketMeta } from 'minecraft-protocol'
 import { Bot as VanillaBot, GameState } from 'mineflayer'
 import { performance } from 'perf_hooks'
 import type { Item as ItemType } from 'prismarine-item'
-import { IPositionTransformer, packetAbilities } from '@icetank/mcproxy'
+import { IPositionTransformer, packetAbilities } from '@GenerelSchwerz/mcproxy'
 
 const itemLoader = require('prismarine-item/index.js') // ncc compat, get default.
 const fetch = require('node-fetch')

@@ -1,4 +1,4 @@
-import { Conn } from '@icetank/mcproxy'
+import { Conn } from '@GenerelSchwerz/mcproxy'
 import { ConstructorOptions, EventEmitter2 } from 'eventemitter2'
 import { Client } from 'minecraft-protocol'
 import { StrictEventEmitter } from 'strict-event-emitter-types'
@@ -20,6 +20,7 @@ export type StrictPacketQueuePredictorEvents = Omit<PacketQueuePredictorEvents, 
 type PacketQueuePredictorEmitter<
   T extends PacketQueuePredictorEvents = PacketQueuePredictorEvents
 > = StrictEventEmitter<EventEmitter2, T>
+
 
 export abstract class PacketQueuePredictor<
   Src extends ClientEmitters,
@@ -70,7 +71,7 @@ export abstract class PacketQueuePredictor<
   }
 
   public end (): void {
-    this.emitter.removeListener(this.wantedEvent as any, this.listener)
+    (this.emitter as any).removeListener(this.wantedEvent as any, this.listener)
     this._eta = NaN
     this._lastPos = NaN
   }

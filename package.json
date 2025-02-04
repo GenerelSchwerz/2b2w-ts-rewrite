@@ -25,7 +25,7 @@
     "@nxg-org/mineflayer-antiafk": "^1.5.13",
     "@nxg-org/mineflayer-auto-eat": "^2.3.8",
     "@nxg-org/mineflayer-custom-pvp": "^1.7.2",
-    "@nxg-org/mineflayer-mitm-proxy": "nxg-org/mineflayer-mitm-proxy#1-19",
+    "@nxg-org/mineflayer-mitm-proxy": "nxg-org/mineflayer-mitm-proxy#1.21",
     "@types/node": "^18.15.10",
     "detect-ts-node": "^1.0.5",
     "discord.js": "^14.7.1",
@@ -44,6 +44,6 @@
     "ts-luxon": "^4.0.1"
   },
   "engines": {
-    "node": ">=16.0.0 <19.0.0"
+    "node": "<=22"
   }
 }
