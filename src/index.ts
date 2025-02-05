@@ -58,7 +58,7 @@ async function setup() {
 
     .addPlugin(new SecurityPlugin())
     .addPlugin(new RestartPlugin())
-    .addPlugin(new SpectatorServerPlugin())
+    // .addPlugin(new SpectatorServerPlugin())
     // .addPlugin(new TwoBAntiAFKPlugin())
     // .addPlugin(new MotdReporter())
     

@@ -1,6 +1,7 @@
 const { ProxyServerPlugin } = require("@nxg-org/mineflayer-mitm-proxy");
 const { pathfinder } = require("mineflayer-pathfinder");
 const { default: customPVP } = require("@nxg-org/mineflayer-custom-pvp");
+const { loader: autoEat } = require("@nxg-org/mineflayer-auto-eat");
 
 /**
  * Gen here again.
@@ -48,6 +49,7 @@ class SwordPVPPlugin extends ProxyServerPlugin {
   onInitialBotSetup(bot) {
     bot.loadPlugin(pathfinder);
     bot.loadPlugin(customPVP);
+    bot.loadPlugin(autoEat);
   };
 
   setRange(client, rnge) {
@@ -73,6 +75,7 @@ class SwordPVPPlugin extends ProxyServerPlugin {
         e.position.distanceTo(bot.entity.position) < this.opts.attackRange
       );
       if (e == null) {
+        console.log("Could not find entity with identifier: ", this.wantedTarget)
         this.server.message(client, `Could not find entity with identifier: ${this.wantedTarget}`);
         bot.off("physicsTick", listener);
         this.stop(client);
