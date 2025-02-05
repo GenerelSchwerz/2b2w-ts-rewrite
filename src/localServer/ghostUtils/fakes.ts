@@ -1,4 +1,4 @@
-import { IPositionTransformer, packetAbilities } from "@GenerelSchwerz/mcproxy";
+import { IPositionTransformer, packetAbilities } from "@generelschwerz/mcproxy";
 import { Client, PacketMeta, ServerClient } from "minecraft-protocol";
 import { Bot as VanillaBot, GameState } from "mineflayer";
 import type { Entity } from "prismarine-entity";

@@ -27,7 +27,7 @@ minecraft:
   # The server we wish to connect to.
   # This will override options in "account".
   remoteServer:
-    host: 2b2t.org
+    host: localhost
     port: 25565
     version: 1.21.1
 

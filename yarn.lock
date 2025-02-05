@@ -2,14 +2,6 @@
 # yarn lockfile v1
 
 
-"@GenerelSchwerz/mcproxy@GenerelSchwerz/mcproxy#1.21":
-  version "1.0.8-beta.3"
-  resolved "https://codeload.github.com/GenerelSchwerz/mcproxy/tar.gz/fab13e5987ed982939ef0847446f4cec05c7ff3d"
-  dependencies:
-    deepcopy "^2.1.0"
-    mineflayer "^4.26.0"
-    smart-buffer "^4.2.0"
-
 "@azure/msal-common@14.16.0":
   version "14.16.0"
   resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-14.16.0.tgz#f3470fcaec788dbe50859952cd499340bda23d7a"
@@ -189,6 +181,13 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.1.tgz#de633db3ec2ef6a3c89e2f19038063e8a122e2c2"
   integrity sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==
 
+"@generelschwerz/mcproxy@GenerelSchwerz/mcproxy#1.21":
+  version "1.0.8-beta.3"
+  resolved "https://codeload.github.com/GenerelSchwerz/mcproxy/tar.gz/d69735abd2dde2f38cd341f0b0d0520fc7683ae6"
+  dependencies:
+    deepcopy "^2.1.0"
+    smart-buffer "^4.2.0"
+
 "@hapi/hoek@^9.0.0", "@hapi/hoek@^9.3.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
@@ -331,12 +330,11 @@
 
 "@nxg-org/mineflayer-mitm-proxy@nxg-org/mineflayer-mitm-proxy#1.21":
   version "0.4.4"
-  resolved "https://codeload.github.com/nxg-org/mineflayer-mitm-proxy/tar.gz/b686ebc562e5af55c2632c290b8a3f22a74ddac1"
+  resolved "https://codeload.github.com/nxg-org/mineflayer-mitm-proxy/tar.gz/49afbeaebc7f807e1b60aa620cf0cf3c511b075a"
   dependencies:
-    "@GenerelSchwerz/mcproxy" GenerelSchwerz/mcproxy#1.21
+    "@generelschwerz/mcproxy" GenerelSchwerz/mcproxy#1.21
     eventemitter2 "^6.4.9"
     minecraft-protocol "^1.41.2"
-    strict-event-emitter-types "^2.0.0"
     ts-deepmerge "^6.0.3"
     ts-luxon "^4.2.2"
     ts-node "^10.9.1"
@@ -2273,11 +2271,11 @@ is-bigint@^1.1.0:
     has-bigints "^1.0.2"
 
 is-boolean-object@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/is-boolean-object/-/is-boolean-object-1.2.1.tgz#c20d0c654be05da4fbc23c562635c019e93daf89"
-  integrity sha512-l9qO6eFlUETHtuihLcYOaLKByJ1f+N4kthcU9YjHy3N+B3hWv0y/2Nd0mu/7lTFnRQHTrSdXF50HQ3bl5fEnng==
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/is-boolean-object/-/is-boolean-object-1.2.2.tgz#7067f47709809a393c71ff5bb3e135d8a9215d9e"
+  integrity sha512-wa56o2/ElJMYqjCjGkXri7it5FbebW5usLw/nPmCMs5DeZ7eziSYZhSmPRn0txqeW4LnAmQQU7FgqLpsEFKM4A==
   dependencies:
-    call-bound "^1.0.2"
+    call-bound "^1.0.3"
     has-tostringtag "^1.0.2"
 
 is-callable@^1.2.7:
@@ -2873,7 +2871,7 @@ mineflayer-pathfinder@^2.4.2:
     prismarine-physics "^1.5.2"
     vec3 "^0.1.7"
 
-mineflayer@^4.0.0, mineflayer@^4.26.0:
+mineflayer@^4.0.0:
   version "4.26.0"
   resolved "https://registry.yarnpkg.com/mineflayer/-/mineflayer-4.26.0.tgz#6aaeb52f235ca427bc2b60b95270af4b682028b8"
   integrity sha512-1mCuyqIJUieq/ul7s7UUvcUvycYEMN7GFL5iCUB8DraDsJhj1waP74WkaMUMOKmNukv72T8+6S9O0Jaxer1QHw==
@@ -3026,9 +3024,9 @@ object-assign@^4.1.1:
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
 
 object-inspect@^1.13.3:
-  version "1.13.3"
-  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.13.3.tgz#f14c183de51130243d6d18ae149375ff50ea488a"
-  integrity sha512-kDCGIbxkDSXE3euJZZXzc6to7fCrKHNI/hSRQnRuQ+BWjFNzZwiFF8fj/6o2t2G9/jTj8PSIYTfCLelLZEeRpA==
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.13.4.tgz#8375265e21bc20d0fa582c22e1b13485d6e00213"
+  integrity sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==
 
 object-keys@^1.1.1:
   version "1.1.1"

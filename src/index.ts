@@ -59,8 +59,8 @@ async function setup() {
     .addPlugin(new SecurityPlugin())
     .addPlugin(new RestartPlugin())
     .addPlugin(new SpectatorServerPlugin())
-    .addPlugin(new TwoBAntiAFKPlugin())
-    .addPlugin(new MotdReporter())
+    // .addPlugin(new TwoBAntiAFKPlugin())
+    // .addPlugin(new MotdReporter())
     
 
     // apply settings only after all plugins have been loaded!
@@ -181,7 +181,8 @@ async function setup() {
         rl.clearScreenDown(process.stdout);
         console.log("cleared screen");
         return;
-
+      case "say":
+        return server.broadcastMessage(args.join(" "));
       case "status": {
         return console.log();
       }

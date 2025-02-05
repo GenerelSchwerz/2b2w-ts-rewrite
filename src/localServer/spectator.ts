@@ -1,5 +1,5 @@
 import { ProxyServerPlugin, CommandMap, CmdPerm } from "@nxg-org/mineflayer-mitm-proxy";
-import { Client as ProxyClient, Conn, PacketMiddleware } from "@GenerelSchwerz/mcproxy";
+import { Client as ProxyClient, Conn, PacketMiddleware } from "@generelschwerz/mcproxy";
 import { Client } from "minecraft-protocol";
 import { WorldManager } from "./spectatorUtils";
 import { FakeBotEntity, GhostHandler } from "./ghostUtils/fakes";
@@ -151,15 +151,16 @@ export class SpectatorServerPlugin extends ProxyServerPlugin<SpectatorServerOpts
     }
 
     await this.sendPackets(client);
-    const connect = this.server.psOpts.linkOnConnect && this.server.conn?.pclient == null;
-    if (connect) {
+    const link = this.server.psOpts.linkOnConnect && this.server.conn?.pclient == null;
+    if (link) {
+      this.link(client);
+    } else {
       this.fakeSpectator!.makeSpectator(client);
       this.fakeSpectator!.register(client);
       if (this.server.controllingPlayer == null) {
         this.server.beginBotLogic();
       }
-    } else {
-      this.link(client);
+      
     }
 
     this.server.runCmd(client, "phelp");
